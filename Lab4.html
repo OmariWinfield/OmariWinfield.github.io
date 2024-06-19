@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab4</title>
+  <script src="myScript1.js"></script>
+  <script type="text/javascript">
+   window.alert("Welcome to the store!")
+   var name;
+   var items;
+   var amount;
+   var number;
+    name = window.prompt("Please enter your name","Omari")
+    items = window.prompt("What items are you requesting","Box")
+    amount = window.prompt("Please enter the amount of items","1")
+number = parseInt(amount);
+
+    now = new Date();
+    hour = now.getHours();
+    later = new Date(new Date().getTime()+(7*24*60*60*1000));
+    if (hour < 12){
+      document.write("<h1> Good Morning")
+    } else if (hour < 18) {
+      document.write("<h1> Good Afternoon")
+    } else {
+      document.write("<h1> Good Evening ")
+    }
+    document.write(name + ", thank you for ordering " + number + " " + items )
+  </script>
+</head>
+<body>
+  <p>
+    <script type="text/javascript">
+      document.write("<p1> Your order will arive at " + later)
+     </script>
+  </p>
+</body>
+</html>
