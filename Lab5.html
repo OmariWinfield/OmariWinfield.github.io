@@ -9,9 +9,15 @@
     <title>Lab5</title>
     <script>
       function validatePassword(password) {
-        const specialCharacterPattern = /[!@#$%^&*(),.?":{}|<>]/;
-        return specialCharacterPattern.test(password);
+        for(var i = 0; i < password.length; i++){
+          if(password.charAt(i) == "!" || password.charAt(i) == "?"){
+            return true;
+          } else{
+            return false;
+          }
+        }
       }
+
       function validateForm() {
         var Funfilled = document.forms["myForm"]["fname"].value;
         var Lunfilled = document.forms["myForm"]["lname"].value;
@@ -22,7 +28,7 @@
           alert("Fill everything out.");
           document.write("Registration Failed, refresh page.")
           return false;
-        } else if (!validatePassword(Punfilled)) {
+        } else if (validatePassword(Punfilled)) {
           alert("Password must contain at least one special character.");
           document.write("Registration Failed, refresh page.");
           return false;
@@ -39,18 +45,20 @@
         elemsArr1.forEach((element) => user.push(element.value));
         elemsArr1.forEach((element) => console.log(element.name + " " + element.value));
         console.log(user[2]);
+
         for (var i = 0; i < user[2].length; i++) {
           secretpassword = secretpassword + "*";
         }
-      
-       document.write(user[0] + " " + user[1] + "<br>");
-        document.write(secretpassword + "<br>");
-        for (var i = 3; i < 5; i++) {
-       document.write(user[i] + "<br>");
-        }
+
+      document.write("<h1>User info <br>")
+       document.write("<h4>Name: " + user[0] + " " + user[1] + "<br>");
+        document.write("Password: " + secretpassword + "<br>");
+       document.write("Email: " + user[3] + "<br>");
+       document.write("Date of Birth: " + user[4] + "<br>");
         document.write("Registration Successful")
         console.log(secretpassword);
       }
+
       function handleSubmit() {
         if (validateForm()) {
           submitForm();
