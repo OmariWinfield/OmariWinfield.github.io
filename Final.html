@@ -21,15 +21,15 @@
         </div>
     </div>
   </header>
- <div id="cat-facts"></div>
- <img id="myImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQZdm8Om0ZEzY0e5af9Vzu7QD620d-JklkWQ&s" alt="cat">
  <p id="characterinfo">test</p>
+ <img id="myImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQZdm8Om0ZEzY0e5af9Vzu7QD620d-JklkWQ&s" alt="cat">
   <button type="button" onclick="ButtonPress();">Click me!</button>
     <script type>
+      
 async function ButtonPress() {
     const url = 'https://api.wynncraft.com/v3/player/c6bea586-9dcd-42bf-afcb-132e67c251e6?fullResult'
     const url2 = 'https://api.wynncraft.com/v3/item/search'
-    characterinfo = doc.getByid(characterinfo);
+    const character = document.getElementById(characterinfo);
     //https://api.wynncraft.com/v3/player/c6bea586-9dcd-42bf-afcb-132e67c251e6?fullResult
     //https://api.wynncraft.com/v3/item/search/Koi%20Oil%203
   const option = 
@@ -42,18 +42,18 @@ async function ButtonPress() {
   const myObj = JSON.parse(result);
   //console.log(result);
   console.log(myObj);
-  characterinfo.InnerHtml = myObj;
+  characterinfo.innerText = myObj.firstJoin;
 
-  const options = 
+ /* const options = 
   {
     method: 'Post',
     body :
-    JSON.stringify(someObject)
+    //JSON.stringify(someObject)
   };
 
   const response2 = await
   fetch(url2, options);
-  
+  */
 }
     </script>
 </body>
