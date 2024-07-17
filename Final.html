@@ -21,16 +21,19 @@
         </div>
     </div>
   </header>
- <p id="characterinfo">test</p>
+ <p id="characterinfo">Playtime: </p>
  <img id="myImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQZdm8Om0ZEzY0e5af9Vzu7QD620d-JklkWQ&s" alt="cat">
-  <input type="text" name="UUID" value="c6bea586-9dcd-42bf-afcb-132e67c251e6">
+ <form id="userForm"> 
+  Enter MC Username/UUID<input type="text" name="UUID" value="Shadow_Creeper76">
+ </form>
  <button type="button" onclick="ButtonPress();">Click me!</button>
-    <script type>
-      
+    
+    <script type>   
 async function ButtonPress() {
     //const url = 'https://api.wynncraft.com/v3/player/c6bea586-9dcd-42bf-afcb-132e67c251e6?fullResult'
-    const url = 'https://api.wynncraft.com/v3/player/'
-    const url2 = 'https://api.wynncraft.com/v3/item/search'
+    var UUID = document.forms["userForm"]["UUID"].value;
+    const url = 'https://api.wynncraft.com/v3/player/' + UUID + "?fullResult";
+    //const url2 = 'https://api.wynncraft.com/v3/item/search'
     const character = document.getElementById(characterinfo);
     //https://api.wynncraft.com/v3/player/c6bea586-9dcd-42bf-afcb-132e67c251e6?fullResult
     //https://api.wynncraft.com/v3/item/search/Koi%20Oil%203
@@ -44,7 +47,8 @@ async function ButtonPress() {
   const myObj = JSON.parse(result);
   //console.log(result);
   console.log(myObj);
-  characterinfo.innerText = "playtime: " + myObj.playtime;
+  characterinfo.innerText = "Playtime: " + myObj.playtime;
+  console.log(url);
 
  /* const options = 
   {
