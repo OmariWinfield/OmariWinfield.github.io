@@ -9,35 +9,47 @@
 </head>
 <body>
   <header>
+    
     <div class="jumbotron jumbotron-fluid bg-success">
       <div class="container">
         <div class="column">
         <h1 class="display-4">Wynncraft</h1>
-    <div class="container-fluid">
-      <div class="col-sm">
-        <a class="nav-link bg-warning" href="">Character Info</a>
-        <a class="nav-link bg-warning" href=>Item Search</a>
-      </div>
+      <div class="row">
+        <div class="col">
+          <a class="nav-link bg-warning" href="">Character Stat Comparison</a>
+        </div>
+        <div class="col">
+          <a class="nav-link bg-warning" href=>Item Search</a>
+        </div>
         </div>
     </div>
   </header>
- <p id="characterinfo">Playtime: </p>
- <img id="myImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQZdm8Om0ZEzY0e5af9Vzu7QD620d-JklkWQ&s" alt="cat">
- <form id="userForm"> 
-  Enter MC Username/UUID<input type="text" name="UUID" value="Shadow_Creeper76">
- </form>
- <button type="button" onclick="ButtonPress();">Click me!</button>
-    
+  <div class="container text-center">
+    <img id="myImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQZdm8Om0ZEzY0e5af9Vzu7QD620d-JklkWQ&s" alt="WynncraftLogo">
+    <form id="userForm"> 
+     Player 1<input type="text" name="UUID" value="Shadow_Creeper76">
+     Player 2<input type="text" name="UUID2" value="Salted">
+    </form>
+    <button type="button" onclick="ButtonPress();">Click me!</button>   
+    <p id="characterinfo"> </p>
+    <p id="characterinfo2"> </p>
+    <p id="comparison"></p>
+  </div>
+
     <script type>   
 async function ButtonPress() {
     //const url = 'https://api.wynncraft.com/v3/player/c6bea586-9dcd-42bf-afcb-132e67c251e6?fullResult'
     var UUID = document.forms["userForm"]["UUID"].value;
+    var UUID2 = document.forms["userForm"]["UUID2"].value;
     const url = 'https://api.wynncraft.com/v3/player/' + UUID + "?fullResult";
+    const url2 = 'https://api.wynncraft.com/v3/player/' + UUID2 + "?fullResult";
     //const url2 = 'https://api.wynncraft.com/v3/item/search'
     const character = document.getElementById(characterinfo);
     //https://api.wynncraft.com/v3/player/c6bea586-9dcd-42bf-afcb-132e67c251e6?fullResult
     //https://api.wynncraft.com/v3/item/search/Koi%20Oil%203
-  const option = 
+  
+  
+    const option = 
   {
     method: 'GET',
   };
@@ -47,8 +59,24 @@ async function ButtonPress() {
   const myObj = JSON.parse(result);
   //console.log(result);
   console.log(myObj);
-  characterinfo.innerText = "Playtime: " + myObj.playtime;
+  characterinfo.innerText = UUID + " has a playtime of  " + myObj.playtime + " hours.";
   console.log(url);
+
+  const option2 = 
+  {
+    method: 'GET',
+  };
+  const response2 = await fetch(url2,option2);
+  const result2 = await
+  response2.text();
+  const myObj2 = JSON.parse(result2);
+  //console.log(result);
+  console.log(myObj2);
+  characterinfo2.innerText = UUID2 + " has a playtime of  " + myObj2.playtime + " hours.";
+  console.log(url2);
+  
+  comparison.innerText = "Playtime difference of " + Math.abs(parseInt(myObj2.playtime-myObj.playtime)) + " hours.";
+
 
  /* const options = 
   {
