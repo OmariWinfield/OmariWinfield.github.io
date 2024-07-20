@@ -31,11 +31,16 @@
      Player 2<input type="text" name="UUID2" value="Salted">
     </form>
     <button type="button" onclick="ButtonPress();">Click me!</button>   
-    <p id="characterinfo"> </p>
-    <p id="characterinfo2"> </p>
     <p id="comparison"></p>
   </div>
-
+  <div class="d-flex justify-content-start">
+  <p id="playername" class="fs-1"></p>
+    <p id="characterinfo"> </p>
+</div>
+<div class="d-flex justify-content-end">
+  <p id="playername2" class="fs-1"></p>
+  <p id="characterinfo2"> </p>
+</div>
     <script type>   
 async function ButtonPress() {
     //const url = 'https://api.wynncraft.com/v3/player/c6bea586-9dcd-42bf-afcb-132e67c251e6?fullResult'
@@ -59,7 +64,8 @@ async function ButtonPress() {
   const myObj = JSON.parse(result);
   //console.log(result);
   console.log(myObj);
-  characterinfo.innerText = UUID + " has a playtime of  " + myObj.playtime + " hours.";
+  playername.innerText = UUID
+  characterinfo.innerText =  "Playtime: " + myObj.playtime + " hours.\ntest\ttest";
   console.log(url);
 
   const option2 = 
@@ -72,7 +78,8 @@ async function ButtonPress() {
   const myObj2 = JSON.parse(result2);
   //console.log(result);
   console.log(myObj2);
-  characterinfo2.innerText = UUID2 + " has a playtime of  " + myObj2.playtime + " hours.";
+  playername2.innerText = UUID2
+  characterinfo2.innerText = "Playtime: " + myObj2.playtime + " hours.\ttest";
   console.log(url2);
   
   comparison.innerText = "Playtime difference of " + Math.abs(parseInt(myObj2.playtime-myObj.playtime)) + " hours.";
