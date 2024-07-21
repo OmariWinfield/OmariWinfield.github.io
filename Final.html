@@ -7,41 +7,71 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <title>Final</title>
 </head>
-<body>
+<body class="bg-warning-subtle border-warning-subtle rounded-3">
   <header>
-    
+    <style>
+      img{
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
     <div class="jumbotron jumbotron-fluid bg-success">
       <div class="container">
         <div class="column">
         <h1 class="display-4">Wynncraft</h1>
       <div class="row">
         <div class="col">
-          <a class="nav-link bg-warning" href="/Final.html">Character Stat Comparison</a>
+          <a class="nav-link bg-warning " href="/Final.html">Character Stat Comparison</a>
         </div>
         <div class="col">
           <a class="nav-link bg-warning" href="/Final2.html">Item Search</a>
         </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
         </div>
     </div>
   </header>
-  <div class="container text-center">
-    <img id="myImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQZdm8Om0ZEzY0e5af9Vzu7QD620d-JklkWQ&s" alt="WynncraftLogo">
-    <form id="userForm"> 
-     Player 1<input type="text" name="UUID" value="Shadow_Creeper76">
-     Player 2<input type="text" name="UUID2" value="Salted">
-    </form>
-    <button type="button" onclick="ButtonPress();">Click me!</button>   
-    <p id="comparison"></p>
+ <div class="row">
+  <div class="row">
+    <div class="col">
+      <div class="container text-center">
+        <a href="https://wynncraft.com/">
+          <img id="myImg" src="https://upload.wikimedia.org/wikipedia/en/a/a4/Wynncraft_logo.png" alt="WynncraftLogo">
+        </a>
+        <h1>Wynncraft Stats Comparer</h1>
+        <form id="userForm" class=""> 
+         Player 1 <input type="text" name="UUID" value="Shadow_Creeper76" class="bg-success-subtle">
+         Player 2 <input type="text" name="UUID2" value="Salted" class="bg-success-subtle">
+        </form>
+        <button type="button" onclick="ButtonPress();" class="bg-success-subtle">Compare</button>   
+        <div class="bg-success border-warning-subtle rounded-3">
+          <p id="comparison"></p>
+        </div>
+    </div>
+    </div>
   </div>
-  <div class="d-flex justify-content-start">
-  <p id="playername" class="fs-1"></p>
-    <p id="characterinfo"> </p>
+  <div class="col">
+    <div class="justify-content-start bg-success border-warning-subtle rounded-3">
+      <p id="characterinfo" class="containter text-center" ></p>
+      <img  id='character1'src="" alt=""></img>
+  </div>
 </div>
-<div class="d-flex justify-content-end">
-  <p id="playername2" class="fs-1"></p>
-  <p id="characterinfo2"> </p>
+<div class="col">
+  <div  class="justify-content-end bg-success border-warning-subtle rounded-3">
+    <p id="characterinfo2" class="containter text-center"></p>
+    <img  id='character2'src="" alt=""></img>
+  </div>
 </div>
+ </div>
+ <div id="news" class="container text-center"></div>
+ <p id="error"></p>
     <script type>   
+    //d-flex
+    const image = document.getElementById('character1');
+    const image2 = document.getElementById('character2');
 async function ButtonPress() {
     //const url = 'https://api.wynncraft.com/v3/player/c6bea586-9dcd-42bf-afcb-132e67c251e6?fullResult'
     var UUID = document.forms["userForm"]["UUID"].value;
@@ -63,10 +93,11 @@ async function ButtonPress() {
   response.text();
   const myObj = JSON.parse(result);
   //console.log(result);
-  console.log(myObj);
-  playername.innerText = UUID
-  characterinfo.innerText =  "Playtime: " + myObj.playtime + " hours.\ntest\ttest";
-  console.log(url);
+  console.log(myObj.firstJoin);
+  //playername.innerText = UUID + "\ntest"; //Format UUID into big text before putting it into characterinfo
+  characterinfo.innerText =  myObj.username + ", " + myObj.guild.rank + " of the " + myObj.guild.name + " Guild"+ "\nPlaytime: " + myObj.playtime + " hours." + "\nTotal Level: " + myObj.globalData.totalLevel + "\nQuest Completions: " + myObj.globalData.completedQuests + "\nDungeon Completions: " + myObj.globalData.dungeons.total + "\nRaid Completions: " + myObj.globalData.raids.total;
+ //console.log(myObj.characters[myObj.activeCharacter])
+
 
   const option2 = 
   {
@@ -77,24 +108,39 @@ async function ButtonPress() {
   response2.text();
   const myObj2 = JSON.parse(result2);
   //console.log(result);
-  console.log(myObj2);
-  playername2.innerText = UUID2
-  characterinfo2.innerText = "Playtime: " + myObj2.playtime + " hours.\ttest";
-  console.log(url2);
-  
-  comparison.innerText = "Playtime difference of " + Math.abs(parseInt(myObj2.playtime-myObj.playtime)) + " hours.";
+  //console.log(myObj2);
+  characterinfo2.innerText =  myObj2.username + ", " + myObj2.guild.rank + " of the " + myObj2.guild.name + " Guild" + "\nPlaytime: " + myObj2.playtime + " hours." + "\nTotal Level: " + myObj2.globalData.totalLevel + "\nQuest Completions: " + myObj2.globalData.completedQuests + "\nDungeon Completions: " + myObj2.globalData.dungeons.total + "\nRaid Completions: " + myObj2.globalData.raids.total;
+ 
+  comparison.innerText = "Playtime difference of " + Math.abs(parseInt(myObj2.playtime-myObj.playtime)) + " hours." + "\nLevel difference of " + Math.abs(parseInt(myObj2.globalData.totalLevel-myObj.globalData.totalLevel)) + "\nQuest Completion difference of " + Math.abs(parseInt(myObj2.globalData.completedQuests-myObj.globalData.completedQuests)) + "\nDungeon Completion difference of " +  Math.abs(parseInt(myObj2.globalData.dungeons.total-myObj.globalData.dungeons.total)) + "\nRaid Completion difference of " + Math.abs(parseInt(myObj2.globalData.raids.total-myObj.globalData.raids.total)) ;
 
-
- /* const options = 
+image.src = 'https://visage.surgeplay.com/player/512/' + myObj.uuid;
+image2.src = 'https://visage.surgeplay.com/player/512/' + myObj2.uuid;
+  /*const option4 = 
   {
-    method: 'Post',
-    body :
-    //JSON.stringify(someObject)
+    method: 'GET',
   };
-
-  const response2 = await
-  fetch(url2, options);
+ console.log(url4);
+  const response4 = await fetch(url4,option4);
+  const result4 = await
+  response4.text();
+  const myObj4 = JSON.parse(result4);
   */
+}
+
+window.onload = async function News(){
+  url3 = 'https://api.wynncraft.com/v3/latest-news';
+  const option3 = 
+  {
+    method: 'GET',
+  };
+  const response3 = await fetch(url3,option3);
+ 
+  console.error(response3);
+  const result3 = await
+  response3.text();
+  const myObj3 = JSON.parse(result3);
+  news.innerHTML = myObj3[0].content;
+  //console.log(myObj3[0])
 }
     </script>
 </body>
