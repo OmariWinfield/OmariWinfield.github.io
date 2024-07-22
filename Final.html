@@ -69,7 +69,7 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript">   
+  <script type>   
     const image = document.getElementById('character1');
     const image2 = document.getElementById('character2');
 
@@ -83,7 +83,8 @@
       const characterinfo2 = document.getElementById('characterinfo2');
       const comparison = document.getElementById('comparison');
 
-      const option = {
+      const option = 
+      {
         method: 'GET',
       };
 
@@ -101,8 +102,7 @@
 
               image2.src = 'https://visage.surgeplay.com/player/512/' + myObj2.uuid;
 
-              comparison.innerText = "Playtime difference of " + Math.abs(parseInt(myObj2.playtime-myObj.playtime)) + " hours." + "\nLevel difference of " + Math.abs(parseInt(myObj2.globalData.totalLevel-myObj.globalData.totalLevel)) + "\nQuest Completion difference of " + Math.abs(parseInt(myObj2.globalData.completedQuests-myObj.globalData.completedQuests)) + "\nDungeon Completion difference of " +  Math.abs(parseInt(myObj2.globalData.dungeons.total-myObj.globalData.dungeons.total)) + "\nRaid Completion difference of " + Math.abs(parseInt(myObj2.globalData.raids.total-myObj.globalData.raids.total)) 
- ;
+              comparison.innerText = "Playtime difference of " + Math.abs(parseInt(myObj2.playtime-myObj.playtime)) + " hours." + "\nLevel difference of " + Math.abs(parseInt(myObj2.globalData.totalLevel-myObj.globalData.totalLevel)) + "\nQuest Completion difference of " + Math.abs(parseInt(myObj2.globalData.completedQuests-myObj.globalData.completedQuests)) + "\nDungeon Completion difference of " +  Math.abs(parseInt(myObj2.globalData.dungeons.total-myObj.globalData.dungeons.total)) + "\nRaid Completion difference of " + Math.abs(parseInt(myObj2.globalData.raids.total-myObj.globalData.raids.total));
             })
             .catch(error => {
               console.error('Error fetching data for player 2:', error);
