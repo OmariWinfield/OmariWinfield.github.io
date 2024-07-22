@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <title>Final</title>
+</head>
+<body class="bg-warning-subtle border-warning-subtle rounded-3">
+  <header>
+    <style>
+      img{
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
+    <div class="jumbotron jumbotron-fluid bg-success">
+      <div class="container">
+        <div class="column">
+        <h1 class="display-4">WynnCalculator</h1>
+      <div class="row">
+        <div class="col">
+            <a class="nav-link bg-warning" href="/Final4.html">Home</a>
+          </div>
+        <div class="col">
+          <a class="nav-link bg-warning " href="/Final.html">Player Comparison</a>
+        </div>
+        <div class="col">
+          <a class="nav-link bg-warning" href="/Final3.html">Guild Comparison</a>
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        </div>
+    </div>
+  </header>
+ <div class="row">
+  <div class="row">
+    <div class="col">
+      <div class="container text-center">
+        <a href="https://wynncraft.com/">
+          <img id="myImg" src="https://upload.wikimedia.org/wikipedia/en/a/a4/Wynncraft_logo.png" alt="WynncraftLogo">
+        </a>
+        <h1>Wynncraft Stats Comparer</h1>
+        <form id="userForm" class=""> 
+         Guild 1 <input type="text" name="UUID" value="The Holy Sun" class="bg-success-subtle">
+        Guild 2 <input type="text" name="UUID2" value="Wynncraft" class="bg-success-subtle">
+        </form>
+        <button type="button" onclick="ButtonPress();" class="bg-success-subtle">Compare</button>   
+        <div class="bg-success border-warning-subtle rounded-3">
+          <p id="comparison"></p>
+        </div>
+    </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="justify-content-start bg-success border-warning-subtle rounded-3">
+      <p id="guildinfo" class="containter text-center" ></p>
+      <img  id='character1'src="" alt=""></img>
+  </div>
+</div>
+<div class="col">
+  <div  class="justify-content-end bg-success border-warning-subtle rounded-3">
+    <p id="guildinfo2" class="containter text-center"></p>
+    <img  id='character2'src="" alt=""></img>
+  </div>
+</div>
+ </div>
+ <p id="error"></p>
+    <script type>   
+    //d-flex
+    const image = document.getElementById('character1');
+    const image2 = document.getElementById('character2');
+async function ButtonPress() {
+    //const url = 'https://api.wynncraft.com/v3/player/c6bea586-9dcd-42bf-afcb-132e67c251e6?fullResult'
+    var UUID = document.forms["userForm"]["UUID"].value;
+    var UUID2 = document.forms["userForm"]["UUID2"].value;
+    const url = 'https://api.wynncraft.com/v3/guild/' + UUID;
+    const url2 = 'https://api.wynncraft.com/v3/guild/' + UUID2;
+    //const url2 = 'https://api.wynncraft.com/v3/item/search'
+    const character = document.getElementById(guildinfo);
+    //https://api.wynncraft.com/v3/player/c6bea586-9dcd-42bf-afcb-132e67c251e6?fullResult
+    //https://api.wynncraft.com/v3/item/search/Koi%20Oil%203
+  
+  
+    const option = 
+  {
+    method: 'GET',
+  };
+  const response = await fetch(url,option);
+  const result = await
+  response.text();
+  const myObj = JSON.parse(result);
+  //console.log(result);
+  console.log(myObj);
+  //playername.innerText = UUID + "\ntest"; //Format UUID into big text before putting it into characterinfo
+  guildinfo.innerText =  "[" + myObj.prefix + "]" + myObj.name + " Guild\n" + "Level: " + myObj.level + "\nTotal Members: " + myObj.members.total + "\nTerrorities Owned: " + myObj.territories + "\nWar Count: " + myObj.wars;
+
+ //console.log(myObj.characters[myObj.activeCharacter])
+
+
+  const option2 = 
+  {
+    method: 'GET',
+  };
+  const response2 = await fetch(url2,option2);
+  const result2 = await
+  response2.text();
+  const myObj2 = JSON.parse(result2);
+  //console.log(result);
+  console.log(myObj2.name);
+  guildinfo2.innerText =  "[" + myObj2.prefix + "]" + myObj2.name + " Guild\n" + "Level: " + myObj2.level + "\nTotal Members: " + myObj2.members.total + "\nTerrorities Owned: " + myObj2.territories + "\nWar Count: " + myObj2.wars;
+  comparison.innerText =   "Level difference of " + Math.abs(parseInt(myObj2.level-myObj.level)) + "\nMember difference of " + Math.abs(parseInt(myObj2.members.total-myObj.members.total)) + "\nOwned territories difference of " + Math.abs(parseInt(myObj2.territories-myObj.territories)) + "\nWar count difference of  " +  Math.abs(parseInt(myObj2.wars-myObj.wars));
+}
+    </script>
+</body>
+</html>
