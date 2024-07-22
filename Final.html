@@ -10,7 +10,7 @@
 <body class="bg-warning-subtle border-warning-subtle rounded-3">
   <header>
     <style>
-      img{
+      img {
         display: block;
         max-width: 100%;
         height: auto;
@@ -19,105 +19,105 @@
     <div class="jumbotron jumbotron-fluid bg-success">
       <div class="container">
         <div class="column">
-        <h1 class="display-4">WynnCalculator</h1>
-      <div class="row">
-        <div class="col">
-          <a class="nav-link bg-warning" href="/Final4.html">Home</a>
+          <h1 class="display-4">WynnCalculator</h1>
+          <div class="row">
+            <div class="col">
+              <a class="nav-link bg-warning" href="/Final4.html">Home</a>
+            </div>
+            <div class="col">
+              <a class="nav-link bg-warning " href="/Final.html">Player Comparison</a>
+            </div>
+            <div class="col">
+              <a class="nav-link bg-warning" href="/Final3.html">Guild Comparison</a>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
         </div>
-        <div class="col">
-          <a class="nav-link bg-warning " href="/Final.html">Player Comparison</a>
-        </div>
-        <div class="col">
-          <a class="nav-link bg-warning" href="/Final3.html">Guild Comparison</a>
-        </div>
-        <div class="col">
-        </div>
-        <div class="col">
-        </div>
-        </div>
+      </div>
     </div>
   </header>
- <div class="row">
   <div class="row">
-    <div class="col">
-      <div class="container text-center">
-        <a href="https://wynncraft.com/">
-          <img id="myImg" src="https://upload.wikimedia.org/wikipedia/en/a/a4/Wynncraft_logo.png" alt="WynncraftLogo">
-        </a>
-        <h1>Wynncraft Stats Comparer</h1>
-        <form id="userForm" class=""> 
-         Player 1 <input type="text" name="UUID" value="Shadow_Creeper76" class="bg-success-subtle">
-         Player 2 <input type="text" name="UUID2" value="Salted" class="bg-success-subtle">
-        </form>
-        <button type="button" onclick="ButtonPress();" class="bg-success-subtle">Compare</button>   
-        <div class="bg-success border-warning-subtle rounded-3">
-          <p id="comparison"></p>
+    <div class="row">
+      <div class="col">
+        <div class="container text-center">
+          <a href="https://wynncraft.com/">
+            <img id="myImg" src="https://upload.wikimedia.org/wikipedia/en/a/a4/Wynncraft_logo.png" alt="WynncraftLogo">
+          </a>
+          <h1>Wynncraft Stats Comparer</h1>
+          <form id="userForm" class=""> 
+            Player 1 <input type="text" name="UUID" value="Shadow_Creeper76" class="bg-success-subtle">
+            Player 2 <input type="text" name="UUID2" value="Salted" class="bg-success-subtle">
+          </form>
+          <button type="button" onclick="ButtonPress();" class="bg-success-subtle">Compare</button>   
+          <div class="bg-success border-warning-subtle rounded-3">
+            <p id="comparison"></p>
+          </div>
         </div>
+      </div>
     </div>
+    <div class="col">
+      <div class="justify-content-start bg-success border-warning-subtle rounded-3">
+        <p id="characterinfo" class="container text-center"></p>
+        <img id="character1" src="" alt=""></img>
+      </div>
+    </div>
+    <div class="col">
+      <div class="justify-content-end bg-success border-warning-subtle rounded-3">
+        <p id="characterinfo2" class="container text-center"></p>
+        <img id="character2" src="" alt=""></img>
+      </div>
     </div>
   </div>
-  <div class="col">
-    <div class="justify-content-start bg-success border-warning-subtle rounded-3">
-      <p id="characterinfo" class="containter text-center" ></p>
-      <img  id='character1'src="" alt=""></img>
-  </div>
-</div>
-<div class="col">
-  <div  class="justify-content-end bg-success border-warning-subtle rounded-3">
-    <p id="characterinfo2" class="containter text-center"></p>
-    <img  id='character2'src="" alt=""></img>
-  </div>
-</div>
- </div>
- <p id="error"></p>
-    <script type>   
-    //d-flex
+  <script type="text/javascript">   
     const image = document.getElementById('character1');
     const image2 = document.getElementById('character2');
-async function ButtonPress() {
-    //const url = 'https://api.wynncraft.com/v3/player/c6bea586-9dcd-42bf-afcb-132e67c251e6?fullResult'
-    var UUID = document.forms["userForm"]["UUID"].value;
-    var UUID2 = document.forms["userForm"]["UUID2"].value;
-    const url = 'https://api.wynncraft.com/v3/player/' + UUID + "?fullResult";
-    const url2 = 'https://api.wynncraft.com/v3/player/' + UUID2 + "?fullResult";
-    //const url2 = 'https://api.wynncraft.com/v3/item/search'
-    const character = document.getElementById(characterinfo);
-    //https://api.wynncraft.com/v3/player/c6bea586-9dcd-42bf-afcb-132e67c251e6?fullResult
-    //https://api.wynncraft.com/v3/item/search/Koi%20Oil%203
-  
-  
-    const option = 
-  {
-    method: 'GET',
-  };
-  const response = await fetch(url,option);
-  const result = await
-  response.text();
-  const myObj = JSON.parse(result);
-  //console.log(result);
-  console.log(myObj.firstJoin);
-  //playername.innerText = UUID + "\ntest"; //Format UUID into big text before putting it into characterinfo
-  characterinfo.innerText =  myObj.username + ", " + myObj.guild.rank + " of the " + myObj.guild.name + " Guild"+ "\nPlaytime: " + myObj.playtime + " hours." + "\nTotal Level: " + myObj.globalData.totalLevel + "\nQuest Completions: " + myObj.globalData.completedQuests + "\nDungeon Completions: " + myObj.globalData.dungeons.total + "\nRaid Completions: " + myObj.globalData.raids.total;
- //console.log(myObj.characters[myObj.activeCharacter])
 
+    async function ButtonPress() {
+      var UUID = document.forms["userForm"]["UUID"].value;
+      var UUID2 = document.forms["userForm"]["UUID2"].value;
+      const url = 'https://api.wynncraft.com/v3/player/' + UUID + "?fullResult";
+      const url2 = 'https://api.wynncraft.com/v3/player/' + UUID2 + "?fullResult";
 
-  const option2 = 
-  {
-    method: 'GET',
-  };
-  const response2 = await fetch(url2,option2);
-  const result2 = await
-  response2.text();
-  const myObj2 = JSON.parse(result2);
-  //console.log(result);
-  //console.log(myObj2);
-  characterinfo2.innerText =  myObj2.username + ", " + myObj2.guild.rank + " of the " + myObj2.guild.name + " Guild" + "\nPlaytime: " + myObj2.playtime + " hours." + "\nTotal Level: " + myObj2.globalData.totalLevel + "\nQuest Completions: " + myObj2.globalData.completedQuests + "\nDungeon Completions: " + myObj2.globalData.dungeons.total + "\nRaid Completions: " + myObj2.globalData.raids.total;
- 
-  comparison.innerText = "Playtime difference of " + Math.abs(parseInt(myObj2.playtime-myObj.playtime)) + " hours." + "\nLevel difference of " + Math.abs(parseInt(myObj2.globalData.totalLevel-myObj.globalData.totalLevel)) + "\nQuest Completion difference of " + Math.abs(parseInt(myObj2.globalData.completedQuests-myObj.globalData.completedQuests)) + "\nDungeon Completion difference of " +  Math.abs(parseInt(myObj2.globalData.dungeons.total-myObj.globalData.dungeons.total)) + "\nRaid Completion difference of " + Math.abs(parseInt(myObj2.globalData.raids.total-myObj.globalData.raids.total)) ;
+      const characterinfo = document.getElementById('characterinfo');
+      const characterinfo2 = document.getElementById('characterinfo2');
+      const comparison = document.getElementById('comparison');
 
-image.src = 'https://visage.surgeplay.com/player/512/' + myObj.uuid;
-image2.src = 'https://visage.surgeplay.com/player/512/' + myObj2.uuid;
-}
-    </script>
+      const option = {
+        method: 'GET',
+      };
+
+      fetch(url, option)
+        .then(response => response.json())
+        .then(myObj => {
+          characterinfo.innerText =  myObj.username + ", " + myObj.guild.rank + " of the " + myObj.guild.name + " Guild"+ "\nPlaytime: " + myObj.playtime + " hours." + "\nTotal Level: " + myObj.globalData.totalLevel + "\nQuest Completions: " + myObj.globalData.completedQuests + "\nDungeon Completions: " + myObj.globalData.dungeons.total + "\nRaid Completions: " + myObj.globalData.raids.total;
+
+          image.src = 'https://visage.surgeplay.com/player/512/' + myObj.uuid;
+
+          fetch(url2, option)
+            .then(response2 => response2.json())
+            .then(myObj2 => {
+              characterinfo2.innerText =  myObj2.username + ", " + myObj2.guild.rank + " of the " + myObj2.guild.name + " Guild" + "\nPlaytime: " + myObj2.playtime + " hours." + "\nTotal Level: " + myObj2.globalData.totalLevel + "\nQuest Completions: " + myObj2.globalData.completedQuests + "\nDungeon Completions: " + myObj2.globalData.dungeons.total + "\nRaid Completions: " + myObj2.globalData.raids.total;
+
+              image2.src = 'https://visage.surgeplay.com/player/512/' + myObj2.uuid;
+
+              comparison.innerText = "Playtime difference of " + Math.abs(parseInt(myObj2.playtime-myObj.playtime)) + " hours." + "\nLevel difference of " + Math.abs(parseInt(myObj2.globalData.totalLevel-myObj.globalData.totalLevel)) + "\nQuest Completion difference of " + Math.abs(parseInt(myObj2.globalData.completedQuests-myObj.globalData.completedQuests)) + "\nDungeon Completion difference of " +  Math.abs(parseInt(myObj2.globalData.dungeons.total-myObj.globalData.dungeons.total)) + "\nRaid Completion difference of " + Math.abs(parseInt(myObj2.globalData.raids.total-myObj.globalData.raids.total)) 
+ ;
+            })
+            .catch(error => {
+              console.error('Error fetching data for player 2:', error);
+              alert('Error fetching data for player 2:');
+            });
+        })
+        .catch(error => {
+          console.error('Error fetching data for player 1', error);
+          alert('Error fetching data for player 1');
+        });
+    }
+  </script>
 </body>
 </html>
+
+
+
+
