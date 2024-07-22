@@ -67,12 +67,21 @@ async function ButtonPress() {
   {
     method: 'Post',
     body :
-    JSON.stringify(someObject)
+    JSON.stringify({
+    "query": [item],
+    //"type": [str, list],
+    //"tier": [int, list, str],
+    //"attackSpeed": [str, list],
+    //"levelRange": [int, list],
+    //"professions": [str, list],
+    //"identifications": [str, list],
+    //"majorIds": [str, list],
+})
   };
 
-  const response2 = await
+  const response = await
   fetch(url, options);
-  console.log(someObject)
+  console.log(query[item])
 }
     </script>
 </body>
