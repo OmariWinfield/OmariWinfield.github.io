@@ -31,6 +31,7 @@
           <a class="nav-link bg-warning" href="/Final3.html">Guild Comparison</a>
         </div>
         <div class="col">
+            <a class="nav-link bg-warning" href="/Final5.html">Leaderboards</a>
         </div>
         <div class="col">
         </div>
@@ -60,27 +61,33 @@
       <a href="https://github.com/OmariWinfield/OmariWinfield.github.io">
         <p class="fs-5">Github</p>
       </a>
+
 </div>
 </div>
  </div>
  <div id="news" class="container text-center bg-success rounded-3"></div>
  <p id="error"></p>
     <script type>   
-    //d-flex
 window.onload = async function News(){
-  url3 = 'https://api.wynncraft.com/v3/latest-news';
-  const option3 = 
+  url = 'https://api.wynncraft.com/v3/latest-news';
+  const option = 
   {
     method: 'GET',
   };
-  const response3 = await fetch(url3,option3);
+ fetch(url,option)
+ .then(response => response.json())
+ .then(myObj => {
+    news.innerHTML = myObj[0].content;
+ })
+ .catch(error => {
+    console.error('Error getting news', error);
+             news.innerHTML = "Error getting news";
+ })
+       
+
+        
  
-  console.error(response3);
-  const result3 = await
-  response3.text();
-  const myObj3 = JSON.parse(result3);
-  news.innerHTML = myObj3[0].content;
-  //console.log(myObj3[0])
+ 
 }
     </script>
 </body>
