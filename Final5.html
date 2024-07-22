@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <title>Final</title>
+</head>
+<body class="bg-warning-subtle border-warning-subtle rounded-3">
+  <header>
+    <style>
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
+    <div class="jumbotron jumbotron-fluid bg-success">
+      <div class="container">
+        <div class="column">
+          <h1 class="display-4">WynnCalculator</h1>
+          <div class="row">
+            <div class="col">
+              <a class="nav-link bg-warning" href="/Final4.html">Home</a>
+            </div>
+            <div class="col">
+              <a class="nav-link bg-warning " href="/Final.html">Player Comparison</a>
+            </div>
+            <div class="col">
+              <a class="nav-link bg-warning" href="/Final3.html">Guild Comparison</a>
+            </div>
+            <div class="col">
+              <a class="nav-link bg-warning" href="/Final5.html">Leaderboards</a>
+            </div>
+            <div class="col"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container text-center">
+    <div class="row">
+        <a href="https://wynncraft.com/">
+            <img id="myImg" src="https://upload.wikimedia.org/wikipedia/en/a/a4/Wynncraft_logo.png" alt="WynncraftLogo">
+          </a>
+         
+      <div class="col">
+       <h1 class="bg-success border-warning-subtle rounded-3">Names</h1>
+       <p id="leaderboardnames" class="bg-success border-warning-subtle rounded-3"></p>
+      </div>
+      <div class="col">
+       <h1 id= "titlescore"class="bg-success border-warning-subtle rounded-3">Score</h1>
+        <p id="leaderboardscore" class="bg-success border-warning-subtle rounded-3"></p>
+      </div>
+      <div class="col">
+        <h1 class="bg-success border-warning-subtle rounded-3">Playtime(Hours)</h1>
+       <p id="playtime" class="bg-success border-warning-subtle rounded-3"></p>
+      </div>
+      
+    </div>
+    <form id="userForm">
+        Amount <input type="text" name="UUID" value="10" class="bg-success-subtle">
+    </form>
+    <button type="button" onclick="Wars();" class="bg-success-subtle">Wars</button>   
+    <button type="button" onclick="nogCompletion();" class="bg-success-subtle">NOG Completion</button> 
+    <button type="button" onclick="tccCompletion();" class="bg-success-subtle">TCC Completion</button> 
+    <button type="button" onclick="nolCompletion();" class="bg-success-subtle">NOL Completion</button>
+    <button type="button" onclick="tnaCompletion();" class="bg-success-subtle">TNA Completion</button>
+  </div>
+  
+  <script>   
+     async function Wars() {
+        var UUID = document.forms["userForm"]["UUID"].value;
+        const url =  "https://api.wynncraft.com/v3/leaderboards/warsCompletion?resultLimit=" + UUID;
+      console.log(url);
+
+      const leaderboardnames = document.getElementById('leaderboardnames');
+      const leaderboardscore = document.getElementById('leaderboardscore');
+      const playtime = document.getElementById('playtime');
+      const titlescore = document.getElementById('titlescore');
+      const option = 
+      {
+        method: 'GET',
+      };
+
+      fetch(url, option)
+        .then(response => response.json())
+        .then(myObj => {
+
+            let names = "";
+                let scores = "";
+                let playtimes = "";
+
+            for (let i = 1; i <= UUID; i++) {
+                    names += JSON.stringify(myObj[i].name) + "\n";
+                    scores += JSON.stringify(myObj[i].score) + "\n";
+                    playtimes += JSON.stringify(myObj[i].metadata.playtime) + "\n";
+            }
+            leaderboardnames.innerText = names;
+                leaderboardscore.innerText = scores;
+                playtime.innerText = playtimes;
+            titlescore.innerText = "Wars";
+
+        })
+        .catch(error => {
+          console.error('Error fetching data for leaderboards', error);
+          alert('Error fetching data for leaderboards');
+        });
+    }
+
+    async function nogCompletion() {
+        var UUID = document.forms["userForm"]["UUID"].value;
+        const url =  "https://api.wynncraft.com/v3/leaderboards/nogCompletion?resultLimit=" + UUID;
+
+      const leaderboardnames = document.getElementById('leaderboardnames');
+      const leaderboardscore = document.getElementById('leaderboardscore');
+      const playtime = document.getElementById('playtime');
+      const titlescore = document.getElementById('titlescore');
+      const option = 
+      {
+        method: 'GET',
+      };
+
+      fetch(url, option)
+        .then(response => response.json())
+        .then(myObj => {
+
+            let names = "";
+                let scores = "";
+                let playtimes = "";
+
+            for (let i = 1; i <= UUID; i++) {
+                    names += JSON.stringify(myObj[i].name) + "\n";
+                    scores += JSON.stringify(myObj[i].score) + "\n";
+                    playtimes += JSON.stringify(myObj[i].metadata.playtime) + "\n";
+            }
+            leaderboardnames.innerText = names;
+                leaderboardscore.innerText = scores;
+                playtime.innerText = playtimes;
+            titlescore.innerText = "Nest of the Grootslangs Completions";
+
+        })
+        .catch(error => {
+          console.error('Error fetching data for leaderboards', error);
+          alert('Error fetching data for leaderboards');
+        });
+    }
+
+    async function tccCompletion() {
+        var UUID = document.forms["userForm"]["UUID"].value;
+        const url =  "https://api.wynncraft.com/v3/leaderboards/tccCompletion?resultLimit=" + UUID;
+
+      const leaderboardnames = document.getElementById('leaderboardnames');
+      const leaderboardscore = document.getElementById('leaderboardscore');
+      const playtime = document.getElementById('playtime');
+      const titlescore = document.getElementById('titlescore');
+      const option = 
+      {
+        method: 'GET',
+      };
+
+      fetch(url, option)
+        .then(response => response.json())
+        .then(myObj => {
+            let names = "";
+                let scores = "";
+                let playtimes = "";
+
+            for (let i = 1; i <= UUID; i++) {
+                    names += JSON.stringify(myObj[i].name) + "\n";
+                    scores += JSON.stringify(myObj[i].score) + "\n";
+                    playtimes += JSON.stringify(myObj[i].metadata.playtime) + "\n";
+            }
+            leaderboardnames.innerText = names;
+                leaderboardscore.innerText = scores;
+                playtime.innerText = playtimes;
+            titlescore.innerText = "The Canyon Colossus";
+
+        })
+        .catch(error => {
+          console.error('Error fetching data for leaderboards', error);
+          alert('Error fetching data for leaderboards');
+        });
+    }
+
+    async function nolCompletion() {
+        var UUID = document.forms["userForm"]["UUID"].value;
+        const url =  "https://api.wynncraft.com/v3/leaderboards/nolCompletion?resultLimit=" + UUID;
+
+      const leaderboardnames = document.getElementById('leaderboardnames');
+      const leaderboardscore = document.getElementById('leaderboardscore');
+      const playtime = document.getElementById('playtime');
+      const titlescore = document.getElementById('titlescore');
+      const option = 
+      {
+        method: 'GET',
+      };
+
+      fetch(url, option)
+        .then(response => response.json())
+        .then(myObj => {
+
+            let names = "";
+                let scores = "";
+                let playtimes = "";
+
+            for (let i = 1; i <= UUID; i++) {
+                    names += JSON.stringify(myObj[i].name) + "\n";
+                    scores += JSON.stringify(myObj[i].score) + "\n";
+                    playtimes += JSON.stringify(myObj[i].metadata.playtime) + "\n";
+            }
+            leaderboardnames.innerText = names;
+                leaderboardscore.innerText = scores;
+                playtime.innerText = playtimes;
+            titlescore.innerText = "Orphion's Nexus of Light Completions";
+
+        })
+        .catch(error => {
+          console.error('Error fetching data for leaderboards', error);
+          alert('Error fetching data for leaderboards');
+        });
+    }
+
+    async function tnaCompletion() {
+        var UUID = document.forms["userForm"]["UUID"].value;
+        const url =  "https://api.wynncraft.com/v3/leaderboards/tnaCompletion?resultLimit=" + UUID;
+
+      const leaderboardnames = document.getElementById('leaderboardnames');
+      const leaderboardscore = document.getElementById('leaderboardscore');
+      const playtime = document.getElementById('playtime');
+      const titlescore = document.getElementById('titlescore');
+      const option = 
+      {
+        method: 'GET',
+      };
+
+      fetch(url, option)
+        .then(response => response.json())
+        .then(myObj => {
+
+            let names = "";
+                let scores = "";
+                let playtimes = "";
+
+            for (let i = 1; i <= UUID; i++) {
+                    names += JSON.stringify(myObj[i].name) + "\n";
+                    scores += JSON.stringify(myObj[i].score) + "\n";
+                    playtimes += JSON.stringify(myObj[i].metadata.playtime) + "\n";
+            }
+            leaderboardnames.innerText = names;
+                leaderboardscore.innerText = scores;
+                playtime.innerText = playtimes;
+            titlescore.innerText = "The Nameless Anomaly Completions";
+
+        })
+        .catch(error => {
+          console.error('Error fetching data for leaderboards', error);
+          alert('Error fetching data for leaderboards');
+        });
+    }
+  </script>
+</body>
+</html>
+
+
+
+
